@@ -1,11 +1,26 @@
 import styles from "./ImageCard.module.css";
+import { useState } from "react";
+import Loader from "../Loader/Loader.jsx";
 
-const ImageCard = () => {
+function ImageCard({ image }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
   return (
-    <li>
+    <div className={styles.cardContainer}>
+      {isLoading && <Loader />}
 
-    </li>
+      <img
+        src={image.urls.small}
+        alt={image.alt_description || "Image"}
+        className={`${styles.cardImage} ${isLoading ? styles.hidden : ""}`}
+        onLoad={handleImageLoad}
+      />
+    </div>
   );
-};
+}
 
 export default ImageCard;
